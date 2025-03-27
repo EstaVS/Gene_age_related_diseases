@@ -132,9 +132,11 @@ all_genes <- merge(all_genes, gene_mapping, by = "gene_id", all.x = TRUE)
 all_genes <- all_genes %>%
   select(gene_name, everything()) %>%
   mutate(gene_name = ifelse(is.na(gene_name), gene_id, gene_name))
-  
-### Visualising the data ###
 
+### Saving the all_genes file for other scripts ###
+write_csv(all_genes, "differential_expression_data.csv")
+
+### Visualising the data ### Pre-Phylostrata
 library(ggplot2)
 
 # Sort by absolute log2FoldChange and select top 20
@@ -155,7 +157,7 @@ ggplot(top_20_genes, aes(x = gene_name, y = log2FoldChange, fill = log2FoldChang
 ### PCA plot ###
 
 #  Extract normalized expression matrix
-normalized_expression <- counts(dds, normalized = TRUE)
+expression_matrix <- counts(dds, normalized = TRUE)
 
 # Check the dimensions
 dim(expression_matrix) # Should be genes (rows) x samples (columns)
@@ -259,30 +261,98 @@ ggplot(top_genes, aes(x = PC1, y = PC2, label = gene_name)) +
   xlab("PC1 Loadings") +
   ylab("PC2 Loadings")
 
-### Check if gene names match ones in Phylostratum database ###
+### Adding Phylostrata column to the Raw Data ###
 
-phylostrata <- read.table("~/Desktop/gene_age_project/phylostratum_database/gene_phylostrata.txt", header = TRUE, sep = ",", stringsAsFactors = FALSE)
-phylostrata
+phylostrata <- read.table("phylostratum_database/gene_phylostrata.txt", header = TRUE, sep = ",", stringsAsFactors = FALSE)
+head(phylostrata)
+# Renaming GeneID column name to gene_name
+phylostrata <- phylostrata %>%
+  mutate(gene_name = GeneID) %>%
+  select(gene_name, everything()) %>%
+  select(-GeneID)
 
-# Extract gene symbols from Phylostrata file
-phylostrata_genes <- unique(phylostrata$GeneID)  # Update column name if needed
+# Merging raw data & phylostrata by gene name
+all_genes <- all_genes %>%
+  left_join(phylostrata, by = "gene_name")
+head(all_genes)
 
-# Extract row names from our expression data
-expression_genes <- unique(all_genes$gene_name)
+### Visualising the data ### Post Phylostrata
+library(tidyverse)
 
-# Find genes that are in both datasets
-common_genes <- intersect(expression_genes, phylostrata_genes)
+numeric_data <- all_genes %>%
+  select(baseMean, log2FoldChange, lfcSE, stat, pvalue, padj) %>%
+  drop_na()  # remove rows with NAs if needed
 
-# Find genes that are missing in the Phylostrata file
-missing_in_phylostrata <- setdiff(expression_genes, phylostrata_genes)
+pca <- prcomp(numeric_data, center = TRUE, scale. = TRUE)
 
-# Find genes that are in Phylostrata but not in the expression dataset
-missing_in_expression <- setdiff(phylostrata_genes, expression_genes)
+pca_df <- as.data.frame(pca$x) %>%
+  mutate(
+    gene_name = all_genes$gene_name[!is.na(all_genes$padj)],
+    phylostrata = all_genes$Phylostrata[!is.na(all_genes$padj)]
+  )
 
-# Print summary
-cat("Number of matching genes:", length(common_genes), "\n")
-cat("Number of genes in expression data but not in Phylostrata:", length(missing_in_phylostrata), "\n")
-cat("Number of genes in Phylostrata but not in expression data:", length(missing_in_expression), "\n")
+ggplot(pca_df, aes(x = PC1, y = PC2, color = as.factor(phylostrata))) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title = "PCA of DE Stats Colored by Phylostrata",
+    color = "Phylostrata"
+  ) +
+  theme_minimal()
 
-# View the missing genes
+# With NAs removed before PCA
+all_genes_filtered <- all_genes %>%
+  filter(!is.na(Phylostrata))
+
+numeric_data <- all_genes_filtered %>%
+  select(baseMean, log2FoldChange, lfcSE, stat, pvalue, padj) %>%
+  drop_na()  # remove rows with NAs if needed
+
+pca <- prcomp(numeric_data, center = TRUE, scale. = TRUE)
+
+pca_df <- as.data.frame(pca$x) %>%
+  mutate(
+    gene_name = all_genes_filtered$gene_name[!is.na(all_genes_filtered$padj)],
+    phylostrata = all_genes_filtered$Phylostrata[!is.na(all_genes_filtered$padj)]
+  )
+
+pca_plot <- ggplot(pca_df, aes(x = PC1, y = PC2, color = as.factor(phylostrata))) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title = "PCA of Differential Expression results for Breast Cancer samples",
+    color = "Phylostrata"
+  ) +
+  labs(color = "Phylostrata") +
+  theme_classic()
+
+ggsave("breast_cancer_pca.png", plot = pca_plot, width = 8, height = 6, dpi = 300)
+
+### Subsetted for Phyostrata 1-4 ###
+pca_df_subset <- pca_df %>%
+  filter(phylostrata %in% 1:4)
+
+pca_plot_2 <- ggplot(pca_df_subset, aes(x = PC1, y = PC2, color = as.factor(phylostrata))) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title = "PCA of Differential Expression results for Breast Cancer samples - Only phylostrata 1-4",
+    color = "Phylostrata"
+  ) +
+  labs(color = "Phylostrata") +
+  theme_classic()
+
+ggsave("breast_cancer_pca_subset.png", plot = pca_plot_2, width = 8, height = 6, dpi = 300)
+
+### Opposite subset ###
+pca_df_subset_2 <- pca_df %>%
+  filter(phylostrata %in% 10:11)
+
+pca_plot_3 <- ggplot(pca_df_subset_2, aes(x = PC1, y = PC2, color = as.factor(phylostrata))) +
+  geom_point(alpha = 0.7, size = 2) +
+  labs(
+    title = "PCA of Differential Expression results for Breast Cancer samples - Only phylostrata 10-11",
+    color = "Phylostrata"
+  ) +
+  labs(color = "Phylostrata") +
+  theme_classic()
+
+ggsave("breast_cancer_pca_subset_2.png", plot = pca_plot_3, width = 8, height = 6, dpi = 300)
 
