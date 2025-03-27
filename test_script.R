@@ -356,3 +356,23 @@ pca_plot_3 <- ggplot(pca_df_subset_2, aes(x = PC1, y = PC2, color = as.factor(ph
 
 ggsave("breast_cancer_pca_subset_2.png", plot = pca_plot_3, width = 8, height = 6, dpi = 300)
 
+# Violin plots
+all_genes_filtered_clean <- all_genes_filtered %>%
+  filter(!is.na(log2FoldChange), !is.na(Phylostrata))
+
+violin_plot <- ggplot(all_genes_filtered_clean, aes(x = as.factor(Phylostrata), y = log2FoldChange, fill = as.factor(Phylostrata))) +
+  geom_violin(trim = FALSE, scale = "width", color = "gray30", alpha = 0.8) +
+  theme_classic() +
+  labs(
+    title = "Breast Cancer Log2FoldChange Results by Phylostrata",
+    x = "Phylostrata",
+    y = "log2(Fold Change)",
+    fill = "Phylostrata"
+  ) +
+  theme(legend.position = "none")
+
+ggsave("breast_cancer_violin.png", plot = violin_plot, width = 8, height = 6, dpi = 300)
+
+### ANOVA across Phylostrata ###
+kruskal.test(log2FoldChange ~ as.factor(Phylostrata), data = all_genes_filtered)
+
