@@ -1,0 +1,9 @@
+
+	Fisher's Exact Test for Count Data with simulated p-value (based on 10000
+	replicates)
+
+data:  contingency
+p-value = 0.0396
+alternative hypothesis: two.sided
+
+Top N genes used: 680

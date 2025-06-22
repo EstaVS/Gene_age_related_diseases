@@ -1,0 +1,28 @@
+"project_id","cancer_type","pval","log_pval"
+"CESC","Cervical Squamous Cell Carcinoma",9.999e-05,4.00004343161981
+"CHOL","Cholangiocarcinoma",9.999e-05,4.00004343161981
+"SKCM","Skin Cutaneous Melanoma",9.999e-05,4.00004343161981
+"READ","Rectum Adenocarcinoma",2e-04,3.69897000433602
+"UCEC","Uterine Corpus Endometrial Carcinoma",2e-04,3.69897000433602
+"BRCA","Breast Invasive Carcinoma",0.0005999,3.22192113806254
+"SARC","Sarcoma",0.0007999,3.0969643032115
+"LUAD","Lung Adenocarcinoma",0.0015,2.82390874094432
+"OV","Ovarian Serous Cystadenocarcinoma",0.0016,2.79588001734407
+"LIHC","Liver Hepatocellular Carcinoma",0.0022,2.65757731917779
+"PCPG","Pheochromocytoma and Paraganglioma",0.0023,2.63827216398241
+"LUSC","Lung Squamous Cell Carcinoma",0.0037,2.431798275933
+"PAAD","Pancreatic Adenocarcinoma",0.0049,2.30980391997149
+"TGCT","Testicular Germ Cell Tumors",0.005499,2.25971628031812
+"KICH","Kidney Chromophobe",0.008199,2.08623911358768
+"HNSC","Head and Neck Squamous Cell Carcinoma",0.0104,1.98296666070122
+"ACC","Adrenocortical Carcinoma",0.0129,1.88941028970075
+"UCS","Uterine Carcinosarcoma",0.0152,1.81815641205523
+"THYM","Thymoma",0.023,1.63827216398241
+"THCA","Thyroid Carcinoma",0.0266,1.57511836336893
+"BLCA","Bladder Urothelial Carcinoma",0.05229,1.28158135817034
+"LGG","Low Grade Glioma",0.06639,1.17789733135308
+"PRAD","Prostate Adenocarcinoma",0.07339,1.13436311230037
+"COAD","Colon Adenocarcinoma",0.1585,0.79997073344623
+"GBM","Glioblastoma Multiforme",0.2606,0.584025588623434
+"KIRP","Kidney Renal Papillary Cell Carcinoma",0.4004,0.397505931192719
+"KIRC","Kidney Renal Clear Cell Carcinoma",0.7343,0.134126471792185

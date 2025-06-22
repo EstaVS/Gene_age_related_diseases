@@ -1,0 +1,21 @@
+"project_id","cancer_type","pval","log_pval"
+"BRCA","Breast Invasive Carcinoma",9.999e-05,4.00004343161981
+"CESC","Cervical Squamous Cell Carcinoma",9.999e-05,4.00004343161981
+"CHOL","Cholangiocarcinoma",9.999e-05,4.00004343161981
+"ESCA","Esophageal Carcinoma",9.999e-05,4.00004343161981
+"HNSC","Head and Neck Squamous Cell Carcinoma",9.999e-05,4.00004343161981
+"KICH","Kidney Chromophobe",9.999e-05,4.00004343161981
+"KIRC","Kidney Renal Clear Cell Carcinoma",9.999e-05,4.00004343161981
+"KIRP","Kidney Renal Papillary Cell Carcinoma",9.999e-05,4.00004343161981
+"LIHC","Liver Hepatocellular Carcinoma",9.999e-05,4.00004343161981
+"LUAD","Lung Adenocarcinoma",9.999e-05,4.00004343161981
+"LUSC","Lung Squamous Cell Carcinoma",9.999e-05,4.00004343161981
+"PAAD","Pancreatic Adenocarcinoma",9.999e-05,4.00004343161981
+"PRAD","Prostate Adenocarcinoma",9.999e-05,4.00004343161981
+"READ","Rectum Adenocarcinoma",9.999e-05,4.00004343161981
+"STAD","Stomach Adenocarcinoma",9.999e-05,4.00004343161981
+"THCA","Thyroid Carcinoma",9.999e-05,4.00004343161981
+"BLCA","Bladder Urothelial Carcinoma",2e-04,3.69897000433602
+"COAD","Colon Adenocarcinoma",2e-04,3.69897000433602
+"PCPG","Pheochromocytoma and Paraganglioma",2e-04,3.69897000433602
+"UCEC","Uterine Corpus Endometrial Carcinoma",4e-04,3.39794000867204
