@@ -1,0 +1,30 @@
+project_id,cancer_type
+ACC,Adrenocortical Carcinoma
+BLCA,Bladder Urothelial Carcinoma
+BRCA,Breast Invasive Carcinoma
+CESC,Cervical Squamous Cell Carcinoma
+CHOL,Cholangiocarcinoma
+COAD,Colon Adenocarcinoma
+ESCA,Esophageal Carcinoma
+GBM,Glioblastoma Multiforme
+HNSC,Head and Neck Squamous Cell Carcinoma
+KICH,Kidney Chromophobe
+KIRC,Kidney Renal Clear Cell Carcinoma
+KIRP,Kidney Renal Papillary Cell Carcinoma
+LGG,Low Grade Glioma
+LIHC,Liver Hepatocellular Carcinoma
+LUAD,Lung Adenocarcinoma
+LUSC,Lung Squamous Cell Carcinoma
+OV,Ovarian Serous Cystadenocarcinoma
+PAAD,Pancreatic Adenocarcinoma
+PCPG,Pheochromocytoma and Paraganglioma
+PRAD,Prostate Adenocarcinoma
+READ,Rectum Adenocarcinoma
+SARC,Sarcoma
+SKCM,Skin Cutaneous Melanoma
+STAD,Stomach Adenocarcinoma
+TGCT,Testicular Germ Cell Tumors
+THCA,Thyroid Carcinoma
+THYM,Thymoma
+UCEC,Uterine Corpus Endometrial Carcinoma
+UCS,Uterine Carcinosarcoma
