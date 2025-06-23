@@ -85,10 +85,6 @@ for (project_id in tcga_projects) {
     tumor_medians <- apply(norm_counts[, tumor_samples], 1, median, na.rm = TRUE)
     normal_medians <- apply(norm_counts[, normal_samples], 1, median, na.rm = TRUE)
     
-    # Add medians to DE results
-    res_df$cancer_median <- tumor_medians[rownames(res_df)]
-    res_df$normal_median <- normal_medians[rownames(res_df)]
-    
     # Continue DE
     res_df <- as.data.frame(results(dds, contrast = c("sample_type", "Primary Tumor", "Solid Tissue Normal"))) %>%
       mutate(gene_id = rownames(.)) %>%
@@ -97,6 +93,10 @@ for (project_id in tcga_projects) {
       select(gene_name, everything()) %>%
       left_join(phylostrata, by = "gene_name") %>%
       filter(!is.na(Phylostrata))
+    
+    # Now add cancer & normal medians to res_df
+    res_df$cancer_median <- tumor_medians[res_df$gene_id]
+    res_df$normal_median <- normal_medians[res_df$gene_id]
     
     # Save DE
     write_csv(res_df, paste0("DE_results/", project_id, "_DE.csv"))
