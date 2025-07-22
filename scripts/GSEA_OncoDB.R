@@ -5,6 +5,7 @@ library(ggplot2)
 library(fgsea)
 library(viridis)
 library(ggrepel)
+library(stringr)
 
 # Load metadata
 project_info <- read_csv("metadata/project_info.csv")
@@ -63,8 +64,8 @@ for (project_path in files) {
     nPermSimple = 10000  # More permutations for problematic pathways
   )
   
-  # Save results
-  write_csv(gsea_results, paste0("stats/OncoDB/GSEA/", project_id, "_OncoDB_gsea_results.csv"))
+  # Save results as RDS files - retains list-columns
+  saveRDS(gsea_results,  paste0("stats/OncoDB/GSEA/", project_id, "_OncoDB_gsea_results.rds"))
   
   ### Visualisation 1: GSEA Enrichment Plot (Top Pathway)
   top_pathway <- gsea_results %>% 
@@ -141,6 +142,7 @@ for (project_path in files) {
       leading_data <- data %>%
         filter(gene_name %in% leading_genes) %>%
         arrange(desc(log2FoldChange)) %>%
+        slice_head(n = 30) %>% # Capped at top 30 genes for visual reasons
         select(gene_name, log2FoldChange, Phylostrata) %>%
         mutate(Phylostrata = factor(Phylostrata))
       

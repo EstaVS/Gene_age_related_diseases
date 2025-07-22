@@ -5,6 +5,7 @@ library(ggplot2)
 library(fgsea)
 library(viridis)
 library(ggrepel)
+library(stringr)
 
 # Load metadata
 project_info <- read_csv("metadata/project_info.csv")
@@ -62,7 +63,7 @@ for (project_path in files) {
     nPermSimple = 10000
   )
   
-  write_csv(gsea_results, paste0("stats/TCGA/GSEA/", project_id, "_TCGA_gsea_results.csv"))
+  saveRDS(gsea_results, paste0("stats/TCGA/GSEA/", project_id, "_TCGA_gsea_results.rds"))
   
   ### Visualisation 1: GSEA Enrichment Plot (Top Pathway)
   top_pathway <- gsea_results %>%
@@ -75,7 +76,7 @@ for (project_path in files) {
       phylostrata_sets[[top_pathway]],
       ranked_genes
     ) + 
-      labs(title = paste("GSEA Enrichment for phylostrata", top_pathway, "in", project_id, "(OncoDB)"),
+      labs(title = paste("GSEA Enrichment for phylostrata", top_pathway, "in", project_id, "(TCGA)"),
            subtitle = paste("NES =", round(gsea_results$NES[1], 2), 
                             "FDR =", format.pval(gsea_results$padj[1], digits = 2))) +
       theme(plot.title = element_text(size = 16, face = "bold"),
@@ -141,6 +142,7 @@ for (project_path in files) {
       leading_data <- data %>%
         filter(gene_name %in% leading_genes) %>%
         arrange(desc(log2FoldChange)) %>%
+        slice_head(n = 30) %>% # Capped at top 30 genes for visual reasons
         select(gene_name, log2FoldChange, Phylostrata) %>%
         mutate(Phylostrata = factor(Phylostrata))
       
@@ -227,7 +229,7 @@ for (project_path in files) {
     geom_point(alpha = 0.6, size = 1.5) +
     scale_color_viridis_d(name = "Phylostrata") +
     theme_bw() +
-    labs(title = paste0("Gene Ranking Distribution:", project_id, " (TCGA)"),
+    labs(title = paste0("Gene Ranking Distribution: ", project_id, " (TCGA)"),
          x = "Rank",
          y = "Ranking Metric") +
     theme(plot.title = element_text(size = 16, face = "bold"),
