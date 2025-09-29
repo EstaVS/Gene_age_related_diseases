@@ -17,9 +17,9 @@ This project aims to explore the evolutionary trajectory of genes involved in ag
 
 - GSEA revealed lineage-specific enrichment patterns:
 
-    - KIRC: Enriched in PS10–PS12 genes involved in immune signaling and angiogenesis (e.g., VEGFA, CXCL10).
+    - KIRC: Enriched in PS10–PS12 genes involved in immune signaling and angiogenesis (e.g. *VEGFA*, *CXCL10*).
     
-    - LIHC: Showed dual enrichment — ancient PS2 genes (e.g., UBE2C, MAGEA3) and younger PS14 genes (e.g., GPC3).
+    - LIHC: Showed dual enrichment — ancient PS2 genes (e.g. *UBE2C*, *MAGEA3*) and younger *PS14* genes (e.g. *GPC3*).
     
     - BRCA: Dataset-specific patterns — OncoDB highlighted ancient mitotic genes (PS3–PS4), while TCGA showed repression of developmental genes (PS7).
 
@@ -77,7 +77,7 @@ A pre-compiled gene-to-phylostrata mapping file is required for evolutionary age
 
 The analysis relies on the following key datasets. Due to licensing, the raw data files are not stored in this repository but can be downloaded from the original sources.
 
-1.  **Phylostrata Dataframe:** Privately produced, available in *Phylostrata/gene_phylostrata.txt*
+1.  **Phylostrata Dataframe:** Privately produced, available in 'Phylostrata/gene_phylostrata.txt'
 2.  **OncoDB:** Differentially Expressed Genes from Various Cancers available at *https://oncodb.org/data_downloads.html*
 3.  **TCGA:** Database query and direct download to HPC environment via *TCGAbiolinks* R package. 
 
