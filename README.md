@@ -2,7 +2,7 @@
 
 This repository contains code and data for the analysis presented in the study: **"Investigating the Relationship Between Gene Evolutionary Age and Susceptibility to Age-Related Diseases"**.
 
-**Authors:** Esta V. Shrewsbury, 
+**Author:** Esta V. Shrewsbury, 
 **Supervisor:** Dr Dan V. Nicolau, 
 In affiliation with King's College London, for the completion of the MSc in Applied Bioinformatics
 
