@@ -77,9 +77,9 @@ A pre-compiled gene-to-phylostrata mapping file is required for evolutionary age
 
 The analysis relies on the following key datasets. Due to licensing, the raw data files are not stored in this repository but can be downloaded from the original sources.
 
-1.  **Phylostrata Dataframe:** Privately produced, available in 'Phylostrata/gene_phylostrata.txt'
+1.  **Phylostrata Dataframe:** Privately produced, available in `Phylostrata/gene_phylostrata.txt`
 2.  **OncoDB:** Differentially Expressed Genes from Various Cancers available at *https://oncodb.org/data_downloads.html*
-3.  **TCGA:** Database query and direct download to HPC environment via *TCGAbiolinks* R package. 
+3.  **TCGA:** Database query and direct download to HPC environment via `TCGAbiolinks` R package. 
 
 
 ### Processed Data
